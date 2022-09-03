@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Subscription } from 'rxjs';
 import { IPost } from 'src/app/models/IPost';
 import { PostService } from 'src/app/services/post/post.service';
-import {interval} from 'rxjs'
+import { interval } from 'rxjs'
 
 @Component({
   selector: 'app-post',
@@ -16,7 +16,7 @@ export class PostComponent implements OnInit, OnDestroy {
   postsSubscription!: Subscription;
   intervalSubscription!: Subscription;
 
-  constructor(private postService: PostService, private ref:ChangeDetectorRef) {}
+  constructor(private postService: PostService, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getPosts();
@@ -24,29 +24,31 @@ export class PostComponent implements OnInit, OnDestroy {
 
   getPosts() {
 
-    this.intervalSubscription=  interval(5000).subscribe({
-      next:(data)=>{console.log(data);},
-    error:(error)=>{console.log(error);},
-    complete:()=>{console.log('completye Interval')},
+    this.intervalSubscription = interval(5000).subscribe({
+      next: (data) => { console.log(data); },
+      error: (error) => { console.log(error); },
+      complete: () => { console.log('Complete Interval') },
 
 
-  }
+    }
     )
 
 
     this.postsSubscription = this.postService
       .getPostsWithCategory()
       .subscribe(
-      
-      {
-      next:(data)=>{console.log(data); this.posts = data;
-        this.ref.detectChanges()},
-    error:(error)=>{console.log(error);},
-    complete:()=>{console.log('completye http call')},
+
+        {
+          next: (data) => {
+            console.log(data); this.posts = data;
+            this.ref.detectChanges()
+          },
+          error: (error) => { console.log(error); },
+          complete: () => { console.log('completye http call') },
 
 
-  }
-      
+        }
+
       );
   }
 

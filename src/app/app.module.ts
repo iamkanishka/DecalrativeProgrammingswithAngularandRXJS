@@ -6,14 +6,16 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PostComponent } from './pages/post/post.component';
 import {HttpClientModule} from '@angular/common/http';
-import { HomeComponent } from './pages/home/home.component'
+import { HomeComponent } from './pages/home/home.component';
+import { DeclarativePostsComponent } from './pages/declarative-posts/declarative-posts.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     PostComponent,
-    HomeComponent
+    HomeComponent,
+    DeclarativePostsComponent
   ],
   imports: [
     BrowserModule,

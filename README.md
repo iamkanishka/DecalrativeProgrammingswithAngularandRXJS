@@ -29,7 +29,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 5. Get Categories using Higher Order Mapping Operators using MergeMap.
 6. Understand ChangeDetetcion Strategy onPush and Default in Angular RXJS.
 7. Advantage of unsubscribing the http observable in ngOnDestroy -  Angular-RXJS.
-
+8. Get Posts using Decalrative Programing in Angular with async and without subsbscribe for Onservable.
 
 
 
