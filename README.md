@@ -1,10 +1,50 @@
-# Ngdeclarativeprogramming
+# DecalrativeProgrammingswithAngularandRXJS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+<p align="center">
+<a  target="blank"><img src="https://malcoded.com/static/4416ca096472d7da64817eb3bd2c6687/f3583/Angular-RxJs.png" width="320" alt="Coder Logo" /></a>
+</p>
+
+RxJS is a library for composing asynchronous and event-based programs by using observable sequences. It provides one core type, the Observable, satellite types (Observer, Schedulers, Subjects) and operators inspired by Array methods (map, filter, reduce, every, etc) to allow handling asynchronous events as collections.
+
+Think of RxJS as Lodash for events.
+
+ReactiveX combines the Observer pattern with the Iterator pattern and functional programming with collections to fill the need for an ideal way of managing sequences of events.
+
+The essential concepts in RxJS which solve async event management are:
+
+Observable: represents the idea of an invokable collection of future values or events.
+Observer: is a collection of callbacks that knows how to listen to values delivered by the Observable.
+Subscription: represents the execution of an Observable, is primarily useful for cancelling the execution.
+Operators: are pure functions that enable a functional programming style of dealing with collections with operations like map, filter, concat, reduce, etc.
+Subject: is equivalent to an EventEmitter, and the only way of multicasting a value or event to multiple Observers.
+Schedulers: are centralized dispatchers to control concurrency, allowing us to coordinate when computation happens on e.g. setTimeout or requestAnimationFrame or others.
+
+
+So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features and Learn as we go on.
+
+1. Introduction to Declarative Reactive Programming vs Imperative Programming in Angular-RXJS.
+
+
+
+
+
+
+# Follow the Below Steps
+
+Note:- Before Starting with this Project, Please make sure you have installed latest stabled version of [Nodejs](https://nodejs.org/en/) Application in your System 
+
+For Installation of Angular CLI and Running the Angular Application Please run the below Commands in you System 
+## Installing Angular CLI
+
+
+Install the CLI using the npm package manager:  `npm install -g @angular/cli`
+
+## Create Angular Project
+To create, build, and serve a new, basic Angular project on a development server, go to the parent directory of your new workspace use the following commands: `ng new my-first-project`
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
