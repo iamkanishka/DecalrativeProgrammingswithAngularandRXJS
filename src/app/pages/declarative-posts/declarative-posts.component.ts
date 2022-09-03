@@ -10,7 +10,7 @@ import { DecalrativePostsService } from 'src/app/services/declarativePosts/decal
 })
 export class DeclarativePostsComponent implements OnInit {
 
-  posts$ = this.decalrativePostsService.posts$
+  posts$ = this.decalrativePostsService.postsWithCategory$
 
   constructor(private decalrativePostsService:DecalrativePostsService) { }
 
