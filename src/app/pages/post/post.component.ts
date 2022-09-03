@@ -10,22 +10,24 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class PostComponent implements OnInit, OnDestroy {
 
-  posts:IPost[]=[]
-   postSubscription! :Subscription
-  constructor(private postService:PostService ) { }
+  posts: IPost[] = [];
+  postsSubscription!: Subscription;
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-   this.postSubscription= this.postService.getPost().subscribe((data)=>{
-      this.posts=data
-      console.log(data);
-      
-    })
+    this.getPosts();
   }
 
-  ngOnDestroy(): void {
-      if(this.postSubscription){
-        this.postSubscription.unsubscribe()
-      }
+  getPosts() {
+    this.postsSubscription = this.postService
+      .getPostsWithCategory()
+      .subscribe((data) => {
+        this.posts = data;
+      });
+  }
+
+  ngOnDestroy() {
+    this.postsSubscription && this.postsSubscription.unsubscribe();
   }
 
 }

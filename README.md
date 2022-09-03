@@ -26,6 +26,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 2. Setup Angular Project and Firebase Database step by step. install RXJS Latest Version.
 3. Get Posts From firebase API using HTTPClient. Call in Component ngOnInit with Subscribe.
 4. Format Posts Response usinh RXJS Map operator and display in the template.
+5. Get Categories using Higher Order Mapping Operators using MergeMap.
 
 
 
