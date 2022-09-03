@@ -23,6 +23,8 @@ Schedulers: are centralized dispatchers to control concurrency, allowing us to c
 So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features and Learn as we go on.
 
 1. Introduction to Declarative Reactive Programming vs Imperative Programming in Angular-RXJS.
+2. Setup Angular Project and Firebase Database step by step. install RXJS Latest Version.
+
 
 
 
