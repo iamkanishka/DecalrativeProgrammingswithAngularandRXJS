@@ -2,7 +2,16 @@
     <div class="col-md 12">
         <h3>Post Data</h3>
 
-        <table class="table" *ngIf="posts$ | async as posts ">
+        <div class="row">
+            <div class="col-md-4">
+                <select name="" id="" class="form-select" (change)="onCategoryChange($event)">
+                    <option value="" disabled> Select Category</option>
+                    <option [value]="item.id" *ngFor="let item of categories$ | async">{{item.title}}</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="table" *ngIf=" filteredPosts$ | async as posts ">
             <thead>
                 <tr>
                     <th>Id</th>

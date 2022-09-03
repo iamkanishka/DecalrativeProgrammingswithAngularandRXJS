@@ -31,6 +31,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 7. Advantage of unsubscribing the http observable in ngOnDestroy -  Angular-RXJS.
 8. Get Posts using Decalrative Programing in Angular with async and without subsbscribe for Onservable.
 9. Combine Categories and Posts Observables using CombineLatest and Forkjoin Operators - Angular RXJS.
+10. Filter Posts by the userselected Category and Display the UI - Angular RXJS
 
 
 
