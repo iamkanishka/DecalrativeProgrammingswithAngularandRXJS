@@ -24,6 +24,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 
 1. Introduction to Declarative Reactive Programming vs Imperative Programming in Angular-RXJS.
 2. Setup Angular Project and Firebase Database step by step. install RXJS Latest Version.
+3. Get Posts From firebase API using HTTPClient. Call in Component ngOnInit with Subscribe.
 
 
 
