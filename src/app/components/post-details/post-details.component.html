@@ -1,5 +1,11 @@
 <h3>Post details</h3>
 
+<div class="row" *ngIf="errorMessageAction$| async as errorMessage">
+    <div class="col-md-12" >
+        <div class="alert alert-danger">{{this.errorMessage}}</div>
+    </div>
+</div>
+
 <div *ngIf="post$ | async as post">
 
  <div>Id: {{post.id}}</div>    
