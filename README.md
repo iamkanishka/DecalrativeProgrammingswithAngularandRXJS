@@ -33,6 +33,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 9. Combine Categories and Posts Observables using CombineLatest and Forkjoin Operators - Angular RXJS.
 10. Filter Posts by the userselected Category and Display the UI - Angular RXJS.
 11. DataStream vs Action Stream.Difference Between the two Observables Streams in Angular RXJS.
+12. Create Action Stream using Behaviour Subject and Filter posts with Selected Category - Angular RXJS
 
 
 

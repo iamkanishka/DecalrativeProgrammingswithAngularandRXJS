@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
-import {map} from 'rxjs'
+import {BehaviorSubject, combineLatest, map, Subject} from 'rxjs'
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
 
 @Component({
@@ -11,12 +11,20 @@ import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory
 
 })
 export class DeclarativePostsComponent implements OnInit {
+  selectedCategorySubject = new BehaviorSubject<string>('');
+  selectedCategoryAction = this.selectedCategorySubject.asObservable()
+
   selectedCategoryId= ''
   posts$ = this.decalrativePostsService.postsWithCategory$
   categories$ = this.categoryService.category$
-  filteredPosts$ = this.posts$.pipe(map((posts)=>{
-    return  posts.filter(post=> this.selectedCategoryId? post.categoryId===this.selectedCategoryId:true)
-  }))
+  filteredPosts$ = combineLatest([this.posts$, this.selectedCategoryAction]).pipe(map(([posts,selectedCategoryId])=>{
+    return  posts.filter(post=> selectedCategoryId? post.categoryId===selectedCategoryId:true)
+  })) 
+  
+  // this.posts$.
+  // pipe(map((posts)=>{
+  //   return  posts.filter(post=> this.selectedCategoryId? post.categoryId===this.selectedCategoryId:true)
+  // }))
 
   constructor(private decalrativePostsService:DecalrativePostsService, private categoryService: DecalrativeCategoryService) { }
 
@@ -24,9 +32,8 @@ export class DeclarativePostsComponent implements OnInit {
   }
 
   onCategoryChange(event:Event){
-    let selectedId = (event.target as HTMLSelectElement ).value
-    console.log(selectedId);
-    this.selectedCategoryId =selectedId
+    this.selectedCategoryId = (event.target as HTMLSelectElement ).value
+  this.selectedCategorySubject.next(this.selectedCategoryId)
     
     
   }
