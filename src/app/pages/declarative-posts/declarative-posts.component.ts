@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
-import {BehaviorSubject, combineLatest, map, tap} from 'rxjs'
+import {Subject, combineLatest, map, tap} from 'rxjs'
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
@@ -12,7 +12,7 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 
 })
 export class DeclarativePostsComponent implements OnInit {
-  selectedCategorySubject = new BehaviorSubject<string>('');
+  selectedCategorySubject = new Subject<string>;
   selectedCategoryAction = this.selectedCategorySubject.asObservable()
 
   selectedCategoryId= ''

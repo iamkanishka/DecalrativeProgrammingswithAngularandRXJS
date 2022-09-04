@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay } from 'rxjs'
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -47,7 +47,7 @@ export class DecalrativePostsService {
 
 
 
-  selectedPostSubject = new Subject<string>;
+  selectedPostSubject = new BehaviorSubject<string>('');
   selectedPostAction$ = this.selectedPostSubject.asObservable();
   post$ = combineLatest([this.postsWithCategory$, this.selectedPostAction$]).pipe(map(([posts, selectedPostId]) => {
     return posts.filter((post) => post.id === selectedPostId)[0]

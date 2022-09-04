@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
+import {tap, combineLatest, map} from 'rxjs'
 
 
 @Component({
@@ -10,8 +11,16 @@ import { DecalrativePostsService } from 'src/app/services/declarativePosts/decal
 })
 export class AlternativePostsComponent  {
   posts$ = this.decalrativePostsService.postsWithCategory$
+  .pipe(tap((posts:any)=>{
+    posts[0].id && this.decalrativePostsService.selectPost(posts[0].id!)
+  }))
   selectedPost$ = this.decalrativePostsService.post$
-
+  
+  vm$ = combineLatest([this.posts$, this.selectedPost$]).pipe(
+    map(([posts, selectedPost]) => {
+      return { posts, selectedPost };
+    })
+  );
 
   constructor(private decalrativePostsService :DecalrativePostsService) { }
 
