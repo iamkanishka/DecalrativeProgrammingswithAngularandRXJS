@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
 import { ICategory } from 'src/app/models/Icategory';
 
 @Injectable({
@@ -18,6 +18,7 @@ export class CategoryService {
         categoriesData.push({...categories[id],id});
       }
       return categoriesData
-    }));
+    }),
+    shareReplay(1));
   }
 }

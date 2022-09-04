@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError } from 'rxjs'
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -21,7 +21,10 @@ export class DecalrativePostsService {
         }
         return postsData;
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      //shareReplay(1),
+      share(),
+
     );
 
   postsWithCategory$ = combineLatest([

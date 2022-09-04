@@ -37,6 +37,8 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 13. Create the Posts UI to Share the Action Stream between the components in Angular RXJS.
 14. Create Action Stream using Subject for Getting Post Details between Components - Angular RXJS.
 15. Shwor Error Messages using Catch Error Operator and assign to the error Subject.
+16. Caching the Observable http data using Share Data using Share and ShareReplay Operators.
+
 
 
 

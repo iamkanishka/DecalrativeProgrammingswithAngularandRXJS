@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICategory } from 'src/app/models/Icategory';
-import {map} from 'rxjs'
+import {map, shareReplay} from 'rxjs'
 
 
 @Injectable({
@@ -16,6 +16,6 @@ export class DecalrativeCategoryService {
       categoriesData.push({...categories[id],id});
     }
     return categoriesData
-  }));
+  }),shareReplay(1));
   constructor(private http:HttpClient) { }
 }

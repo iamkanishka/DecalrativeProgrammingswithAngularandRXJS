@@ -10,12 +10,14 @@ import { DecalrativePostsService } from 'src/app/services/declarativePosts/decal
 })
 export class AlternativePostsComponent  {
   posts$ = this.decalrativePostsService.postsWithCategory$
+  selectedPost$ = this.decalrativePostsService.post$
+
 
   constructor(private decalrativePostsService :DecalrativePostsService) { }
 
   onSelectPost(post:IPost, event:Event){
     event.preventDefault()
-    this.decalrativePostsService.selectPost(post.id!)
+    post.id && this.decalrativePostsService.selectPost(post.id!)
 
  }
  

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { IPost } from 'src/app/models/IPost';
-import { map, mergeMap } from 'rxjs';
+import { map, mergeMap, shareReplay } from 'rxjs';
 import { CategoryService } from '../category/category.service';
 
 @Injectable({
@@ -23,7 +23,8 @@ export class PostService {
             postsData.push({ ...posts[id], id });
           }
           return postsData;
-        })
+        }),
+        shareReplay(1)
       );
   }
 
