@@ -7,7 +7,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { PostComponent } from './pages/post/post.component';
 import {HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
-import { DeclarativePostsComponent } from './pages/declarative-posts/declarative-posts.component'
+import { DeclarativePostsComponent } from './pages/declarative-posts/declarative-posts.component';
+import { AlternativePostsComponent } from './pages/alternative-posts/alternative-posts.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { DeclarativePostsComponent } from './pages/declarative-posts/declarative
     HeaderComponent,
     PostComponent,
     HomeComponent,
-    DeclarativePostsComponent
+    DeclarativePostsComponent,
+    AlternativePostsComponent,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule,
