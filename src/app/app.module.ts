@@ -10,7 +10,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { DeclarativePostsComponent } from './pages/declarative-posts/declarative-posts.component';
 import { AlternativePostsComponent } from './pages/alternative-posts/alternative-posts.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
-import { LoaderComponent } from './components/loader/loader.component'
+import { LoaderComponent } from './components/loader/loader.component';
+import { AddPostComponent } from './components/add-post/add-post.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoaderComponent } from './components/loader/loader.component'
     DeclarativePostsComponent,
     AlternativePostsComponent,
     PostDetailsComponent,
-    LoaderComponent
+    LoaderComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,

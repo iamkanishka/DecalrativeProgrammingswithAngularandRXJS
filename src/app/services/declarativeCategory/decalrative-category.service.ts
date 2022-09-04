@@ -16,6 +16,6 @@ export class DecalrativeCategoryService {
       categoriesData.push({...categories[id],id});
     }
     return categoriesData
-  }),shareReplay(1));
+  }),shareReplay());
   constructor(private http:HttpClient) { }
 }

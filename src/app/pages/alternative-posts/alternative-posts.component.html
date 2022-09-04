@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-md-12">
       <h3>PostDetails</h3>
+      <div class="my-2">
+        <button (click)="onAddPost()" class="btn btn-primary">Add Post</button>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -18,6 +21,7 @@
       </div>
     </div>
     <div class="col-md-8">
-      <app-post-details></app-post-details>
+      <app-post-details *ngIf="!this.showAddPost"></app-post-details>
+      <app-add-post *ngIf="this.showAddPost"></app-add-post>
     </div>
   </div>

@@ -10,6 +10,7 @@ import {tap, combineLatest, map} from 'rxjs'
   styleUrls: ['./alternative-posts.component.scss']
 })
 export class AlternativePostsComponent  {
+  showAddPost:Boolean=false;
   posts$ = this.decalrativePostsService.postsWithCategory$
   .pipe(tap((posts:any)=>{
     posts[0].id && this.decalrativePostsService.selectPost(posts[0].id!)
@@ -25,9 +26,14 @@ export class AlternativePostsComponent  {
   constructor(private decalrativePostsService :DecalrativePostsService) { }
 
   onSelectPost(post:IPost, event:Event){
-    event.preventDefault()
+    event.preventDefault();
+    this.showAddPost=false
     post.id && this.decalrativePostsService.selectPost(post.id!)
 
  }
  
+ onAddPost(){
+  this.showAddPost=true
+
+ }
 }

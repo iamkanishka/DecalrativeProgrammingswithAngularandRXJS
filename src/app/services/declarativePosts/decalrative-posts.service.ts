@@ -14,7 +14,7 @@ export class DecalrativePostsService {
       `https://rxjs-posts-default-rtdb.firebaseio.com/posts.json`
     )
     .pipe(
-      delay(2000),
+      
       map((posts) => {
         let postsData: IPost[] = [];
         for (let id in posts) {
@@ -23,8 +23,8 @@ export class DecalrativePostsService {
         return postsData;
       }),
       catchError(this.handleError),
-      //shareReplay(1),
-      share(),
+      shareReplay(),
+      ///share(),
 
     );
 
@@ -41,7 +41,7 @@ export class DecalrativePostsService {
           )?.title,
         } as IPost;
       });
-    }),
+    },  shareReplay()),
     catchError(this.handleError)
   );
 
@@ -51,7 +51,7 @@ export class DecalrativePostsService {
   selectedPostAction$ = this.selectedPostSubject.asObservable();
   post$ = combineLatest([this.postsWithCategory$, this.selectedPostAction$]).pipe(map(([posts, selectedPostId]) => {
     return posts.filter((post) => post.id === selectedPostId)[0]
-  }),catchError(this.handleError));
+  }),catchError(this.handleError), shareReplay());
 
   selectPost(postId: string) {
     this.selectedPostSubject.next(postId)

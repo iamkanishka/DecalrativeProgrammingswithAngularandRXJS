@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
-import {Subject, combineLatest, map, tap} from 'rxjs'
+import { BehaviorSubject ,Subject, combineLatest, map, tap} from 'rxjs'
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
@@ -12,14 +12,15 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 
 })
 export class DeclarativePostsComponent implements OnInit {
-  selectedCategorySubject = new Subject<string>;
+  selectedCategorySubject = new BehaviorSubject<string>('');
   selectedCategoryAction = this.selectedCategorySubject.asObservable()
 
   selectedCategoryId= ''
   posts$ = this.decalrativePostsService.postsWithCategory$
   categories$ = this.categoryService.category$
   filteredPosts$ = combineLatest([this.posts$, this.selectedCategoryAction]).pipe(tap((data)=>{
-    this.loaderService.hideLoader()
+    this.ref.detectChanges()
+     this.loaderService.hideLoader()
   }),map(([posts,selectedCategoryId])=>{
     return  posts.filter(post=> selectedCategoryId? post.categoryId===selectedCategoryId:true)
   })) 
@@ -31,13 +32,14 @@ export class DeclarativePostsComponent implements OnInit {
 
   constructor(private decalrativePostsService:DecalrativePostsService,
      private categoryService: DecalrativeCategoryService,
-     private loaderService:LoaderService
+     private loaderService:LoaderService,
+     private ref :ChangeDetectorRef
      ) { }
 
   ngOnInit(): void {
     this.loaderService.showLoader()
   }
-
+ 
   onCategoryChange(event:Event){
     this.selectedCategoryId = (event.target as HTMLSelectElement ).value
   this.selectedCategorySubject.next(this.selectedCategoryId)
