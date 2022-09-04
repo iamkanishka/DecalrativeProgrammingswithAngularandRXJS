@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
-import { PostService } from 'src/app/services/post/post.service';
+
 
 @Component({
   selector: 'app-alternative-posts',
@@ -15,8 +15,8 @@ export class AlternativePostsComponent  {
 
   onSelectPost(post:IPost, event:Event){
     event.preventDefault()
-     console.log(post);
-     
-  }
+    this.decalrativePostsService.selectPost(post.id!)
+
+ }
  
 }

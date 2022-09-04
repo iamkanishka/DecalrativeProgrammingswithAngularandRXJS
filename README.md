@@ -35,10 +35,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 11. DataStream vs Action Stream.Difference Between the two Observables Streams in Angular RXJS.
 12. Create Action Stream using Behaviour Subject and Filter posts with Selected Category - Angular RXJS
 13. Create the Posts UI to Share the Action Stream between the components in Angular RXJS.
-
-
-
-
+14. Create Action Stream using Subject for Getting Post Details between Components - Angular RXJS.
 
 
 

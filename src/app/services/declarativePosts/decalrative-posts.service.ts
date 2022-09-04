@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
-import {map, combineLatest} from 'rxjs'
+import { map, combineLatest, Subject } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -9,21 +9,21 @@ import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-c
   providedIn: 'root'
 })
 export class DecalrativePostsService {
-   posts$ = this.http
-   .get<{ [id: string]: IPost }>(
-     `https://rxjs-posts-default-rtdb.firebaseio.com/posts.json`
-   )
-   .pipe(
-     map((posts) => {
-       let postsData: IPost[] = [];
-       for (let id in posts) {
-         postsData.push({ ...posts[id], id });
-       }
-       return postsData;
-     })
-   );
+  posts$ = this.http
+    .get<{ [id: string]: IPost }>(
+      `https://rxjs-posts-default-rtdb.firebaseio.com/posts.json`
+    )
+    .pipe(
+      map((posts) => {
+        let postsData: IPost[] = [];
+        for (let id in posts) {
+          postsData.push({ ...posts[id], id });
+        }
+        return postsData;
+      })
+    );
 
-   postsWithCategory$ = combineLatest([
+  postsWithCategory$ = combineLatest([
     this.posts$,
     this.decalrativeCategoryService.category$,
   ]).pipe(
@@ -38,7 +38,19 @@ export class DecalrativePostsService {
       });
     })
   );
- 
-   constructor(private http:HttpClient, private decalrativeCategoryService:DecalrativeCategoryService) { }
+
+
+
+  selectedPostSubject = new Subject<string>;
+  selectedPostAction$ = this.selectedPostSubject.asObservable();
+  post$ = combineLatest([this.postsWithCategory$, this.selectedPostAction$]).pipe(map(([posts, selectedPostId]) => {
+    return posts.filter((post) => post.id === selectedPostId)[0]
+  }));
+
+  selectPost(postId: string) {
+    this.selectedPostSubject.next(postId)
+  }
+
+  constructor(private http: HttpClient, private decalrativeCategoryService: DecalrativeCategoryService) { }
 
 }

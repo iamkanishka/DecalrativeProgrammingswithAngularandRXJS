@@ -1,1 +1,9 @@
-<p>post-details works!</p>
+<h3>Post details</h3>
+
+<div *ngIf="post$ | async as post">
+
+ <div>Id: {{post.id}}</div>    
+<div>Title: {{post.title}}</div>    
+<div>Description: {{post.description}}</div>    
+<div>categoryName: {{post.categoryName}}</div>   
+</div>
