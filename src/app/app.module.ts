@@ -9,7 +9,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { DeclarativePostsComponent } from './pages/declarative-posts/declarative-posts.component';
 import { AlternativePostsComponent } from './pages/alternative-posts/alternative-posts.component';
-import { PostDetailsComponent } from './components/post-details/post-details.component'
+import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { LoaderComponent } from './components/loader/loader.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
     HomeComponent,
     DeclarativePostsComponent,
     AlternativePostsComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -38,7 +38,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 14. Create Action Stream using Subject for Getting Post Details between Components - Angular RXJS.
 15. Shwor Error Messages using Catch Error Operator and assign to the error Subject.
 16. Caching the Observable http data using Share Data using Share and ShareReplay Operators.
-
+17. Add Loading Spinner Componenet with Decalrative Reactive Programming And Subject- Angular RXJS.
 
 
 

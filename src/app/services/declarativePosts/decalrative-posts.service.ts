@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError, shareReplay, share } from 'rxjs'
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -14,6 +14,7 @@ export class DecalrativePostsService {
       `https://rxjs-posts-default-rtdb.firebaseio.com/posts.json`
     )
     .pipe(
+      delay(2000),
       map((posts) => {
         let postsData: IPost[] = [];
         for (let id in posts) {
