@@ -16,10 +16,7 @@ export class PostDetailsComponent  {
     return EMPTY;
   }))
   constructor(private decalrativePostsService:DecalrativePostsService ) { 
-    this.post$.subscribe((data)=>{
-      console.log(data);
-      
-    })
+  
 
   }
 

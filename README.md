@@ -42,7 +42,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 18. How to Avoid multiple async for observable in template to increase performance - Angular-RXJS.
 19. Create Add Post button and Add Posts UI - Angular RXJS.
 20. Design Add Post Formusing Reactive Forms Module in Angular RXJS.
-
+21. Add the Post Details Submitted using Merge and Scan Operator - Angular RXJS.
 
 
 

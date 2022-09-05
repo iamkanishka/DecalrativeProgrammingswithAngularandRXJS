@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject } from 'rxjs'
+import { CRUDAction, IPost } from 'src/app/models/IPost';
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject, merge, scan, toArray } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -44,6 +44,27 @@ export class DecalrativePostsService {
     },  shareReplay()),
     catchError(this.handleError)
   );
+
+
+private postCRUDSubject = new Subject<CRUDAction<IPost>>()
+postCRUDAction$ = this.postCRUDSubject.asObservable()
+
+
+allPosts$ = merge(
+  this.postsWithCategory$,
+  this.postCRUDAction$.pipe(map((data) => [data.data]))
+).pipe(
+  scan((posts, value) => {
+    return [...posts, ...value];
+  }, [] as IPost[])
+);
+
+
+
+addPost(post:IPost){
+  this.postCRUDSubject.next({action:'add',data:post});
+
+}
 
 
 

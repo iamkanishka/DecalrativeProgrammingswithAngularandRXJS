@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
-import {tap, combineLatest, map} from 'rxjs'
+import {tap, combineLatest, map, toArray} from 'rxjs'
 
 
 @Component({
@@ -11,7 +11,7 @@ import {tap, combineLatest, map} from 'rxjs'
 })
 export class AlternativePostsComponent  {
   showAddPost:Boolean=false;
-  posts$ = this.decalrativePostsService.postsWithCategory$
+  posts$ = this.decalrativePostsService.allPosts$
   .pipe(tap((posts:any)=>{
     posts[0].id && this.decalrativePostsService.selectPost(posts[0].id!)
   }))
@@ -23,7 +23,12 @@ export class AlternativePostsComponent  {
     })
   );
 
-  constructor(private decalrativePostsService :DecalrativePostsService) { }
+  constructor(private decalrativePostsService :DecalrativePostsService) {
+    this.posts$.subscribe((data)=>{
+      console.log(data);
+      
+    })
+   }
 
   onSelectPost(post:IPost, event:Event){
     event.preventDefault();

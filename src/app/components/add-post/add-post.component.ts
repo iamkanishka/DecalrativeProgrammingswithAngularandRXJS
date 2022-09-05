@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { IPost } from 'src/app/models/IPost';
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
+import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
 
 
 @Component({
@@ -17,11 +19,13 @@ export class AddPostComponent implements OnInit {
   });
 
   categories$ = this.categoryService.category$;
-  constructor(private categoryService: DecalrativeCategoryService) {}
+  constructor(private categoryService: DecalrativeCategoryService, private  decalrativePostsService:DecalrativePostsService ) {}
 
   ngOnInit(): void {}
 
   onAddPost() {
     console.log(this.postForm.value);
+    let postData:any = this.postForm.value
+    this.decalrativePostsService.addPost(postData)
   }
 }
