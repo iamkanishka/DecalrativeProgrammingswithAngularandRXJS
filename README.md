@@ -47,7 +47,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 23. Completing Add Post Feature and Ficing Small Issues while adding Post in angular.
 24. Create Edit Post Form Componenst for Updating the existing Post Details.
 25. Populate the Post details in the Update Post Form using Reactive Forms Module - Angular RXJS
-
+26. Completeing Update Post Details with HTTP PUT Resquest in the backend - Angular RXJS
 
 
 

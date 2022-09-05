@@ -11,8 +11,9 @@ import { DecalrativePostsService } from 'src/app/services/declarativePosts/decal
   styleUrls: ['./update-post.component.scss'],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class UpdatePostComponent implements OnInit {
-
+export class UpdatePostComponent  {
+  
+  postId:string =''
   categories$ = this.categoryService.category$;
   postForm = new FormGroup({
     title: new FormControl(''),
@@ -25,6 +26,7 @@ export class UpdatePostComponent implements OnInit {
 
   post$ = this.postService.post$.pipe(
     tap((post) => {
+      this.postId= post.id!
       this.postForm.setValue({
         title: post?.title,
         description: post?.description,
@@ -33,8 +35,14 @@ export class UpdatePostComponent implements OnInit {
     })
   );
 
-  ngOnInit(): void {}
 
+  onUpdatePost(){
+    let postDetails:any =  {...this.postForm.value,id:this.postId};
+  console.log(postDetails);
+  this.postService.updatePost(postDetails)
+  
+
+  }
 
   constructor(private categoryService: DecalrativeCategoryService,
     private postService: DecalrativePostsService

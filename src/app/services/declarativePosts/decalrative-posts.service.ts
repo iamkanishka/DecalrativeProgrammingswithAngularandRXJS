@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CRUDAction, IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject, merge, scan, toArray, of, concatMap } from 'rxjs'
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject, merge, scan, toArray, of, concatMap, Observable } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
 
 
@@ -70,6 +70,11 @@ modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
     if (value.action === 'add') {
       return [...posts, value.data];
     }
+    if (value.action === 'update') {
+      return posts.map((post) =>
+        post.id === value.data.id ? value.data : post
+      );
+    }
   } else {
     return value;
   }
@@ -78,24 +83,46 @@ modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
 }
 
 savePosts(postAction: CRUDAction<IPost>) {
+  let postDetails$!: Observable<IPost>;
+
   if (postAction.action === 'add') {
-    return this.addPostToServer(postAction.data).pipe(
-      concatMap((post) =>
-        this.decalrativeCategoryService.category$.pipe(
-          map((categories) => {
-            return {
-              ...post,
-              categoryName: categories.find(
-                (category) => category.id === post.categoryId
-              )?.title,
-            };
-          })
-        )
-      )
-    );
+    postDetails$ = this.addPostToServer(postAction.data);
   }
 
-  return of(postAction.data);
+  if (postAction.action === 'update') {
+    postDetails$ = this.updatePostToServer(postAction.data);
+  }
+
+  return postDetails$.pipe(
+    concatMap((post) =>
+      this.decalrativeCategoryService.category$.pipe(
+        map((categories) => {
+          return {
+            ...post,
+            categoryName: categories.find(
+              (category) => category.id === post.categoryId
+            )?.title,
+          };
+        })
+      )
+    )
+  );
+}
+
+updatePostToServer(post: IPost) {
+  return this.http
+    .patch<IPost>(
+      `https://rxjs-posts-default-rtdb.firebaseio.com/posts/${post.id}.json`,
+      post
+    )
+    // .pipe(
+    //   map((id) => {
+    //     return {
+    //       ...post,
+          
+    //     };
+    //   })
+    // );
 }
 
 addPostToServer(post: IPost) {
@@ -117,6 +144,10 @@ addPostToServer(post: IPost) {
 
 addPost(post:IPost){
   this.postCRUDSubject.next({action:'add',data:post});
+
+}
+updatePost(post:IPost){
+  this.postCRUDSubject.next({action:'update',data:post});
 
 }
 
