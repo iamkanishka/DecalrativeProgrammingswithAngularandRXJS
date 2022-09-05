@@ -43,6 +43,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 19. Create Add Post button and Add Posts UI - Angular RXJS.
 20. Design Add Post Formusing Reactive Forms Module in Angular RXJS.
 21. Add the Post Details Submitted using Merge and Scan Operator - Angular RXJS.
+22. Send Post Request to save Post Details in the dataBase using ConcatMap operator.
 
 
 
