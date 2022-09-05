@@ -13,6 +13,7 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import { LoaderComponent } from './components/loader/loader.component';
 import { AddPostComponent } from './components/add-post/add-post.component'
 import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
     AlternativePostsComponent,
     PostDetailsComponent,
     LoaderComponent,
-    AddPostComponent
+    AddPostComponent,
+    UpdatePostComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ import { DecalrativePostsService } from 'src/app/services/declarativePosts/decal
 export class PostDetailsComponent  {
   errorMessageSubject =  new BehaviorSubject<string>('')
   errorMessageAction$ = this.errorMessageSubject.asObservable()
-
+  showUpdatePost = false;
   post$ = this.decalrativePostsService.post$.pipe(catchError((error:string)=>{
     this.errorMessageSubject.next(error)
     return EMPTY;
@@ -18,6 +18,10 @@ export class PostDetailsComponent  {
   constructor(private decalrativePostsService:DecalrativePostsService ) { 
   
 
+  }
+ 
+  onUpdatePost() {
+    this.showUpdatePost = true;
   }
 
   

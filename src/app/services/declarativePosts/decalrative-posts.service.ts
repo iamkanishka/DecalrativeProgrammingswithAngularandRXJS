@@ -62,7 +62,7 @@ allPosts$ = merge(
 ).pipe(
   scan((posts, value) => {
     return this.modifyPosts(posts, value);
-  }, [] as IPost[])
+  }, [] as IPost[]), shareReplay(1)
 );
 
 modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
@@ -79,7 +79,20 @@ modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
 
 savePosts(postAction: CRUDAction<IPost>) {
   if (postAction.action === 'add') {
-    return this.addPostToServer(postAction.data);
+    return this.addPostToServer(postAction.data).pipe(
+      concatMap((post) =>
+        this.decalrativeCategoryService.category$.pipe(
+          map((categories) => {
+            return {
+              ...post,
+              categoryName: categories.find(
+                (category) => category.id === post.categoryId
+              )?.title,
+            };
+          })
+        )
+      )
+    );
   }
 
   return of(postAction.data);
@@ -111,7 +124,7 @@ addPost(post:IPost){
 
   selectedPostSubject = new BehaviorSubject<string>('');
   selectedPostAction$ = this.selectedPostSubject.asObservable();
-  post$ = combineLatest([this.postsWithCategory$, this.selectedPostAction$]).pipe(map(([posts, selectedPostId]) => {
+  post$ = combineLatest([this.allPosts$, this.selectedPostAction$]).pipe(map(([posts, selectedPostId]) => {
     return posts.filter((post) => post.id === selectedPostId)[0]
   }),catchError(this.handleError), shareReplay());
 
@@ -119,7 +132,7 @@ addPost(post:IPost){
     this.selectedPostSubject.next(postId)
   }
 
-  constructor(private http: HttpClient, private decalrativeCategoryService: DecalrativeCategoryService) { }
+  constructor(private http: HttpClient, private decalrativeCategoryService: DecalrativeCategoryService, ) { }
 
  handleError(error:Error){
   return throwError(()=>{
