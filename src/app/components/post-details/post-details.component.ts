@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, catchError, EMPTY } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
 @Component({
   selector: 'app-post-details',
@@ -11,7 +11,9 @@ export class PostDetailsComponent  {
   errorMessageSubject =  new BehaviorSubject<string>('')
   errorMessageAction$ = this.errorMessageSubject.asObservable()
   showUpdatePost = false;
-  post$ = this.decalrativePostsService.post$.pipe(catchError((error:string)=>{
+  post$ = this.decalrativePostsService.post$.pipe(tap((post) => {
+    this.showUpdatePost = false;
+  }),catchError((error:string)=>{
     this.errorMessageSubject.next(error)
     return EMPTY;
   }))

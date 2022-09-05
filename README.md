@@ -46,7 +46,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 22. Send Post Request to save Post Details in the dataBase using ConcatMap operator.
 23. Completing Add Post Feature and Ficing Small Issues while adding Post in angular.
 24. Create Edit Post Form Componenst for Updating the existing Post Details.
-
+25. Populate the Post details in the Update Post Form using Reactive Forms Module - Angular RXJS
 
 
 
