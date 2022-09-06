@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest, map, tap } from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { combineLatest, map, startWith, tap } from 'rxjs';
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
 
@@ -45,13 +45,22 @@ export class DeclaraticeAddPostComponent implements OnInit {
   );
 
 
+  notification$ = this.postService.postCRUDCompleteAction$.pipe(
+    startWith(false),
+    tap((message) => {
+      if (message) {
+        this.router.navigateByUrl('/declarativePosts');
+      }
+    })
+  );
 
-  vm$ = combineLatest([this.selectedPostId, this.post$]);
+  vm$ = combineLatest([this.selectedPostId, this.post$,  this.notification$]);
 
   constructor(
     private categoryService: DecalrativeCategoryService,
     private route: ActivatedRoute,
-    private postService: DecalrativePostsService
+    private postService: DecalrativePostsService,
+    private router:Router
   ) {this.postForm.reset()}
 
   ngOnInit(): void {}

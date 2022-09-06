@@ -47,8 +47,11 @@ export class DecalrativePostsService {
   );
 
 
-private postCRUDSubject = new Subject<CRUDAction<IPost>>()
-postCRUDAction$ = this.postCRUDSubject.asObservable()
+private postCRUDSubject = new Subject<CRUDAction<IPost>>();
+postCRUDAction$ = this.postCRUDSubject.asObservable();
+
+private postCRUDCompleteSubject = new Subject<boolean>();
+postCRUDCompleteAction$ = this.postCRUDCompleteSubject.asObservable();
 
 
 allPosts$ = merge(
@@ -92,21 +95,36 @@ savePosts(postAction: CRUDAction<IPost>) {
   let postDetails$!: Observable<IPost>;
 
   if (postAction.action === 'add') {
-    postDetails$ = this.addPostToServer(postAction.data).pipe(tap(post=>{
-      this.notificationService.setSuccessMessage('Post Added Sucessfully')
-    }));
+    postDetails$ = this.addPostToServer(postAction.data).pipe(
+      tap((post) => {
+
+        this.notificationService.setSuccessMessage('Post Added Successfully');
+        this.postCRUDCompleteSubject.next(true);
+      })
+    );
   }
 
   if (postAction.action === 'update') {
-    postDetails$ = this.updatePostToServer(postAction.data).pipe(tap(post=>{
-      this.notificationService.setSuccessMessage('Post Updated Sucessfully')
-    }));
+    postDetails$ = this.updatePostToServer(postAction.data).pipe(
+      tap((post) => {
+        this.notificationService.setSuccessMessage(
+          'Post Updated Successfully'
+        );
+        this.postCRUDCompleteSubject.next(true);
+      })
+    );
   }
 
   if (postAction.action === 'delete') {
-  return this.deletePostToServer(postAction.data).pipe(map((post)=>postAction.data),tap(post=>{
-    this.notificationService.setSuccessMessage('Post Updated Sucessfully')
-  }));
+    return this.deletePostToServer(postAction.data).pipe(
+      tap((post) => {
+        this.notificationService.setSuccessMessage(
+          'Post Deleted Successfully'
+        );
+        this.postCRUDCompleteSubject.next(true);
+      }),
+      map((post) => postAction.data)
+    );
   }
 
   return postDetails$.pipe(

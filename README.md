@@ -54,7 +54,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 30. Completing Add and Update Post Details with routing using Post Form Component in Angular RXJS.
 31. Create Common Global Success and Error Notification Service across all componenst in Angular RXJS.
 32. Display Sucess Message on Adding and Updating Posts using Notification Service - Angular RXJS.
-
+33. Navigate Page back using router after adding Posts Successfully in the Posts Form.
 
 # Follow the Below Steps
 
