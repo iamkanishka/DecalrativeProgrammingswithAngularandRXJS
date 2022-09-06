@@ -1,33 +1,47 @@
 <div class="row">
-    <div class="col-md 12">
-        <h3>Post Data</h3>
-
-        <div class="row">
-            <div class="col-md-4">
-                <select name="" id="" class="form-select" (change)="onCategoryChange($event)">
-                    <option value="" > Select Category</option>
-                    <option [value]="item.id" *ngFor="let item of categories$ | async">{{item.title}}</option>
-                </select>
-            </div>
+    <div class="col-md-12">
+      <h3>Posts Data</h3>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <select class="form-select" (change)="onCategoryChange($event)">
+            <option value="">select category</option>
+            <option
+              [value]="category.id"
+              *ngFor="let category of categories$ | async"
+            >
+              {{ category.title }}
+            </option>
+          </select>
         </div>
-
-        <table class="table" *ngIf=" filteredPosts$ | async as posts ">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let post of posts">
-                    <th>{{post.id}}</th>
-                    <th>{{post.title}}</th>
-                    <th>{{post.description}}</th>
-                    <th>{{post.categoryName}}</th>
-                 </tr>
-            </tbody>
-        </table>
+        <div class="col-md-8 text-end">
+          <a routerLink="/declarativePosts/add" class="btn btn-primary"
+            >Add Post</a
+          >
+        </div>
+      </div>
+  
+      <table class="table" *ngIf="filteredPosts$ | async as posts">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of posts">
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.description }}</td>
+            <td>{{ post.categoryName }}</td>
+            <td>
+              <a [routerLink]="['/declarativePosts/edit/', post.id]" class="btn btn-warning">Update Post</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>
