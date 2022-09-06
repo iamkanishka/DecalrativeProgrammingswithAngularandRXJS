@@ -66,7 +66,8 @@ allPosts$ = merge(
 ).pipe(
   scan((posts, value) => {
     return this.modifyPosts(posts, value);
-  }, [] as IPost[]), shareReplay(1)
+    
+  }, [] as IPost[]), shareReplay(1), catchError(this.handleError)
 );
 
 modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
@@ -100,8 +101,7 @@ savePosts(postAction: CRUDAction<IPost>) {
 
         this.notificationService.setSuccessMessage('Post Added Successfully');
         this.postCRUDCompleteSubject.next(true);
-      })
-    );
+      }), catchError(this.handleError) );
   }
 
   if (postAction.action === 'update') {
@@ -111,7 +111,7 @@ savePosts(postAction: CRUDAction<IPost>) {
           'Post Updated Successfully'
         );
         this.postCRUDCompleteSubject.next(true);
-      })
+      }),catchError(this.handleError)
     );
   }
 
@@ -123,7 +123,7 @@ savePosts(postAction: CRUDAction<IPost>) {
         );
         this.postCRUDCompleteSubject.next(true);
       }),
-      map((post) => postAction.data)
+      map((post) => postAction.data),catchError(this.handleError)
     );
   }
 
@@ -137,7 +137,7 @@ savePosts(postAction: CRUDAction<IPost>) {
               (category) => category.id === post.categoryId
             )?.title,
           };
-        })
+        }), catchError(this.handleError)
       )
     )
   );

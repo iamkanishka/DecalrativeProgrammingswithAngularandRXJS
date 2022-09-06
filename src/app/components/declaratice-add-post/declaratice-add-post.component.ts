@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { combineLatest, map, startWith, tap } from 'rxjs';
+import { catchError, combineLatest, EMPTY, map, startWith, tap } from 'rxjs';
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
+import { NotificationService } from 'src/app/services/Notification/notification.service';
 
 @Component({
   selector: 'app-declaratice-add-post',
@@ -41,6 +42,9 @@ export class DeclaraticeAddPostComponent implements OnInit {
           description: post?.description,
           categoryId: post?.categoryId,
         });
+    }), catchError((error)=>{
+       this.notificationService.setErrorMessage(error);
+       return EMPTY;
     })
   );
 
@@ -60,7 +64,8 @@ export class DeclaraticeAddPostComponent implements OnInit {
     private categoryService: DecalrativeCategoryService,
     private route: ActivatedRoute,
     private postService: DecalrativePostsService,
-    private router:Router
+    private router:Router,
+    private notificationService:NotificationService,
   ) {this.postForm.reset()}
 
   ngOnInit(): void {}
