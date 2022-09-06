@@ -51,7 +51,7 @@ So We will be Looking These DecalrativeProgrammingswithAngularandRXJS  features 
 27. Implememt Delete Post from the Post Details List using HTTP Delete Requestin Angular RXJS.
 28. Create Routing for the Posts Adding and Updating through route Params in angular RXJS.
 29. Add Reactive Forms Module to Posts Form ti Populate post Details while Update - Angular.
-
+30. Completing Add and Update Post Details with routing using Post Form Component in Angular RXJS.
 
 
 

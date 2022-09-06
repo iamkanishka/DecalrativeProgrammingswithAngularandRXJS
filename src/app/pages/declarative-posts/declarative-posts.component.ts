@@ -16,7 +16,7 @@ export class DeclarativePostsComponent implements OnInit {
   selectedCategoryAction = this.selectedCategorySubject.asObservable()
 
   selectedCategoryId= ''
-  posts$ = this.decalrativePostsService.postsWithCategory$
+  posts$ = this.decalrativePostsService.allPosts$
   categories$ = this.categoryService.category$
   filteredPosts$ = combineLatest([this.posts$, this.selectedCategoryAction]).pipe(tap((data)=>{
     this.ref.detectChanges()
