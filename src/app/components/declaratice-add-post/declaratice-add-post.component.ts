@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest, map, tap } from 'rxjs';
 import { DecalrativeCategoryService } from 'src/app/services/declarativeCategory/decalrative-category.service';
+import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
 
 @Component({
   selector: 'app-declaratice-add-post',
@@ -10,8 +14,46 @@ export class DeclaraticeAddPostComponent implements OnInit {
 
   categories$ = this.categoryService.category$;
 
-  constructor(private categoryService: DecalrativeCategoryService) {}
+ 
+  postForm = new FormGroup({
+    title: new FormControl(''),
+    description: new FormControl(''),
+    categoryId: new FormControl(''),
+  });
+
+  selectedPostId = this.route.paramMap.pipe(
+    map((paramMap) => {
+      let id = paramMap.get('id');
+      this.postService.selectPost(id + '');
+      return id;
+    })
+  );
+
+  post$ = this.postService.post$.pipe(
+    tap((post) => {
+      post &&
+        this.postForm.setValue({
+          title: post?.title,
+          description: post?.description,
+          categoryId: post?.categoryId,
+        });
+    })
+  );
+
+
+
+  vm$ = combineLatest([this.selectedPostId, this.post$]);
+
+  constructor(
+    private categoryService: DecalrativeCategoryService,
+    private route: ActivatedRoute,
+    private postService: DecalrativePostsService
+  ) {this.postForm.reset()}
 
   ngOnInit(): void {}
+
+  onPostSubmit() {
+    console.log(this.postForm.value);
+  }
 
 }
