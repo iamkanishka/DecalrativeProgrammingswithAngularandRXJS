@@ -75,6 +75,11 @@ modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>) {
         post.id === value.data.id ? value.data : post
       );
     }
+    if (value.action === 'delete') {
+      return posts.filter((post) =>
+        post.id !== value.data.id
+      );
+    }
   } else {
     return value;
   }
@@ -93,6 +98,10 @@ savePosts(postAction: CRUDAction<IPost>) {
     postDetails$ = this.updatePostToServer(postAction.data);
   }
 
+  if (postAction.action === 'delete') {
+  return this.deletePostToServer(postAction.data).pipe(map((post)=>postAction.data));
+  }
+
   return postDetails$.pipe(
     concatMap((post) =>
       this.decalrativeCategoryService.category$.pipe(
@@ -108,6 +117,12 @@ savePosts(postAction: CRUDAction<IPost>) {
     )
   );
 }
+
+
+
+deletePostToServer(post: IPost) {
+ return this.http .delete<IPost>( `https://rxjs-posts-default-rtdb.firebaseio.com/posts/${post.id}.json`, );
+ }
 
 updatePostToServer(post: IPost) {
   return this.http
@@ -148,6 +163,11 @@ addPost(post:IPost){
 }
 updatePost(post:IPost){
   this.postCRUDSubject.next({action:'update',data:post});
+
+}
+
+deletPost(post:IPost){
+  this.postCRUDSubject.next({action:'delete',data:post});
 
 }
 

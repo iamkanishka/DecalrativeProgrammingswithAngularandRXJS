@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
+import { IPost } from 'src/app/models/IPost';
 import { DecalrativePostsService } from 'src/app/services/declarativePosts/decalrative-posts.service';
 @Component({
   selector: 'app-post-details',
@@ -24,6 +25,13 @@ export class PostDetailsComponent  {
  
   onUpdatePost() {
     this.showUpdatePost = true;
+  }
+
+  onDeletePost(post:IPost){
+    if(confirm('Sure you want to Delete')){
+      this.decalrativePostsService.deletPost(post)
+    }
+
   }
 
   

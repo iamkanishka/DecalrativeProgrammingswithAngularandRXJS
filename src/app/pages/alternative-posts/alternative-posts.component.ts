@@ -13,7 +13,7 @@ export class AlternativePostsComponent  {
   showAddPost:Boolean=false;
   posts$ = this.decalrativePostsService.allPosts$
   .pipe(tap((posts:any)=>{
-    posts[0].id && this.decalrativePostsService.selectPost(posts[0].id!)
+    posts[0]?.id && this.decalrativePostsService.selectPost(posts[0]?.id!)
   }))
   selectedPost$ = this.decalrativePostsService.post$
   
