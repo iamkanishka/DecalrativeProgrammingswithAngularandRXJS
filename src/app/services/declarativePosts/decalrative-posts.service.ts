@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CRUDAction, IPost } from 'src/app/models/IPost';
-import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject, merge, scan, toArray, of, concatMap, Observable } from 'rxjs'
+import { map, combineLatest, Subject, catchError, throwError, shareReplay, share, delay, BehaviorSubject, merge, scan, toArray, of, concatMap, Observable, tap } from 'rxjs'
 import { DecalrativeCategoryService } from '../declarativeCategory/decalrative-category.service';
+import { NotificationService } from '../Notification/notification.service';
 
 
 @Injectable({
@@ -91,15 +92,21 @@ savePosts(postAction: CRUDAction<IPost>) {
   let postDetails$!: Observable<IPost>;
 
   if (postAction.action === 'add') {
-    postDetails$ = this.addPostToServer(postAction.data);
+    postDetails$ = this.addPostToServer(postAction.data).pipe(tap(post=>{
+      this.notificationService.setSuccessMessage('Post Added Sucessfully')
+    }));
   }
 
   if (postAction.action === 'update') {
-    postDetails$ = this.updatePostToServer(postAction.data);
+    postDetails$ = this.updatePostToServer(postAction.data).pipe(tap(post=>{
+      this.notificationService.setSuccessMessage('Post Updated Sucessfully')
+    }));
   }
 
   if (postAction.action === 'delete') {
-  return this.deletePostToServer(postAction.data).pipe(map((post)=>postAction.data));
+  return this.deletePostToServer(postAction.data).pipe(map((post)=>postAction.data),tap(post=>{
+    this.notificationService.setSuccessMessage('Post Updated Sucessfully')
+  }));
   }
 
   return postDetails$.pipe(
@@ -183,7 +190,10 @@ deletPost(post:IPost){
     this.selectedPostSubject.next(postId)
   }
 
-  constructor(private http: HttpClient, private decalrativeCategoryService: DecalrativeCategoryService, ) { }
+  constructor(private http: HttpClient, 
+    private decalrativeCategoryService: DecalrativeCategoryService,
+    private notificationService:NotificationService
+    ) { }
 
  handleError(error:Error){
   return throwError(()=>{
